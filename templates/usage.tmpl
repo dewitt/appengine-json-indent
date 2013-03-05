@@ -1,0 +1,92 @@
+<html>
+  <head>
+   <title>json-indent</title>
+  </head>
+  <body>
+
+    <h1>json-indent</h1>
+    <p>
+      A wrapper around the simplejson library for indenting JSON strings.
+    </p>
+
+    <h3>Bookmarklet (drag to toolbar)</h3>
+    <p>
+     <a href="javascript:void(document.location='http://json-indent.appspot.com/indent?url='+escape(document.location));">json-indent</a>
+    </p>
+    <h3>GET requests</h3>
+
+    <p>
+      The <code><strong>url</strong></code> parameter can be used to refer to a page of JSON content to be indented.  The value must be URL encoded.
+    </p>
+    <ul>
+      <li><code>GET</code> <a href="/indent?url={{ example_json_url|urlencode }}">/indent?url={{ example_json_url }}</a></li>
+    </ul>
+    <form action="/indent" method="get">
+      <fieldset>
+        <legend>Demonstration using GET</legend>
+        <p>
+          <label for="url">Enter a URL to be fetched and indented:</label>
+          <input type="text" size="80" name="url" value="http://friendfeed-api.com/v2/feed/public" />
+        </p>
+        <p>
+          <input type="submit" value="Submit">
+        </p>
+      </fieldset>
+    </form>
+    <p>
+      Alternatively, the <code><strong>content</strong></code> parameter can be used to include the JSON  in the <code>GET</code> request itself.
+    </p>
+
+    <h3>POST requests</h3>
+    <p>
+      <code>POST</code> requests to <code>/indent</code> can be
+      either <code>multipart/form-data</code>
+      or <code>application/x-www-form-urlencoded</code> encoded.  If a
+      key named <code>content</code> is present then the value will
+      be indented.  If not, the entire request body will be indented.
+    </p>
+    <form action="/indent" method="post">
+      <fieldset>
+        <legend>Demonstration using POST</legend>
+        <p>
+          <label for="content">Enter JSON to be indented:</label>
+          <br>   <textarea name="content" cols="80" rows="8">{"glossary":{"title":"example glossary","GlossDiv":{"title": "S","GlossList":{"GlossEntry":{"ID":"SGML","SortAs":"SGML", "GlossTerm":"Standard Generalized Markup Language","Acronym": "SGML","Abbrev":"ISO 8879:1986","GlossDef":{"para":"A meta-markup language, used to create markup languages such as DocBook.","GlossSeeAlso":["GML","XML"]},"GlossSee":"markup"}}}}}</textarea> </p>
+        <p>
+          <input type="submit" value="Submit">
+        </p>
+      </fieldset>
+    </form>
+
+    <h3>JSONP Callbacks</h3>
+    <p>
+      For cross-domain usage directly in web pages, the request can
+      contain the <code><strong>callback</strong></code> parameter,
+      which will wrap the response in a javascript method invocation
+      of the callback's value.
+    </p>
+    <p>
+      For example: <li><code>GET</code> <a href="/indent?callback=f&amp;url={{ example_json_url|urlencode }}">/indent?callback=f&amp;url={{ example_json_url }}</a></li>
+    </p>
+
+    <h3>Colorization</h3>
+    <p>
+      Output can be colorized and returned as
+      type <code>text/html</code> if the request contains
+      the <code><strong>color=true</strong></code> parameter.
+    </p>
+    <p>
+      Note that the <code>color</code> parameter is incompatible with
+      the JSONP callback, as a complete HTML document is returned.
+      See the colorized HTML document for ideas about how the results
+      of a JSONP callback could be embedded directly in an existing
+      document.
+    </p>
+    <p>
+      For example: <li><code>GET</code> <a href="/indent?color=true&amp;url={{ example_json_url|urlencode }}">/indent?color=true&amp;url={{ example_json_url }}</a></li>
+    </p>
+
+    <hr/>
+
+    <p>Copyright <a href="http://unto.net">DeWitt Clinton</a> - <a href="http://appengine-json-indent.googlecode.com/">Source</a> - <a href="http://friendfeed.com/e/9b0cd05f-7cc1-4d63-89eb-21082e2d4f77/json-indent/">Discuss</a></p>
+  </body>
+</html>
